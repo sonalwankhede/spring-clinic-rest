@@ -44,5 +44,5 @@ public interface PrescriptionsRepository extends Repository<Prescription, Intege
 	Collection<Prescription> findAll() throws DataAccessException;
 
 	void delete(Prescription prescription) throws DataAccessException;
-
+	
 }

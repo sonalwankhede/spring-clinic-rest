@@ -41,7 +41,8 @@ public class JacksonCustomVisitDeserializer extends StdDeserializer<Visit> {
 
 	@Override
 	public Visit deserialize(JsonParser parser, DeserializationContext context)	throws IOException, JsonProcessingException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		Visit visit = new Visit();
 		Patient patient = new Patient();
 		ObjectMapper mapper = new ObjectMapper();
@@ -53,7 +54,9 @@ public class JacksonCustomVisitDeserializer extends StdDeserializer<Visit> {
 		String visitDateStr = node.get("visitDate").asText(null);
 
 		try {
-			visitDate = formatter.parse(visitDateStr);
+			Date date = inputFormat.parse(visitDateStr);
+			String formattedDate = formatter.format(date);
+			visitDate = formatter.parse(formattedDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			throw new IOException(e);

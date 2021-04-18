@@ -23,6 +23,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.com.drSnehalAyuCareClinic.model.Prescription;
 import org.com.drSnehalAyuCareClinic.model.Visit;
 import org.com.drSnehalAyuCareClinic.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,6 +118,11 @@ public class VisitRestController {
 		currentVisit.setWeight(visit.getWeight());
 		currentVisit.setBmi(visit.getBmi());
 		currentVisit.setPatient(visit.getPatient());
+		this.clinicService.deletePrescriptionByVisitId(currentVisit.getPrescriptions());
+		currentVisit.setPrescriptions(null);
+		for(Prescription prescription: visit.getPrescriptions()) {
+			currentVisit.addPrescription(prescription);
+		}
 		currentVisit.setPathology(visit.getPathology());
 		currentVisit.setRadiology(visit.getRadiology());
 		this.clinicService.saveVisit(currentVisit);

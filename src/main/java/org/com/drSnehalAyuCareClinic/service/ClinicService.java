@@ -75,4 +75,5 @@ public interface ClinicService {
 	void evictAllPatientCacheValues();
 	void evictAllVisitCacheValues();
 	List<Visit> findVisitsByPatientId(int patientId);
+	void deletePrescriptionByVisitId(List<Prescription> prescriptions);
 }

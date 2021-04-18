@@ -265,4 +265,12 @@ public class ClinicServiceImpl implements ClinicService {
 	public void saveAllDrugs(Collection<Drug> drugs) {
 		commonComponent.saveAllDrugs((List<Drug>) drugs);
 	}
+
+	@Override
+	@Transactional
+	public void deletePrescriptionByVisitId(List<Prescription> prescriptions) {
+		// for (Prescription prescription: prescriptions) {
+		commonComponent.deleteAllPrescriptions(prescriptions);
+		//}
+	}
 }

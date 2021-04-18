@@ -2,15 +2,19 @@ package org.com.drSnehalAyuCareClinic.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.com.drSnehalAyuCareClinic.model.Drug;
+import org.com.drSnehalAyuCareClinic.model.Prescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class CommonComponent {
@@ -44,5 +48,15 @@ public class CommonComponent {
 				return drugs.size();
 			}
 		});	
+	}
+
+	@Transactional
+	public void deleteAllPrescriptions(List<Prescription> prescriptions) {
+		// cascade delete prescriptions
+		for (Prescription prescription : prescriptions) {
+			Map<String, Object> prescription_params = new HashMap<>();
+			prescription_params.put("id", prescription.getId());
+			this.namedParameterJdbcTemplate.update("DELETE FROM prescriptions WHERE id=:id", prescription_params);
+		}		
 	}
 }

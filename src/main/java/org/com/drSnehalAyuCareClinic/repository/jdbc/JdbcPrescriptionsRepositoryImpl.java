@@ -76,8 +76,9 @@ public class JdbcPrescriptionsRepositoryImpl implements PrescriptionsRepository 
 
 	@Override
 	public void delete(Prescription prescription) throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		Map<String, Object> prescription_params = new HashMap<>();
+		prescription_params.put("id", prescription.getId());
+		this.namedParameterJdbcTemplate.update("DELETE FROM prescriptions WHERE id=:id", prescription_params);
 	}
 
 	protected class JdbcPrescriptionsRowMapperExt implements RowMapper<Prescription> {
