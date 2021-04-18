@@ -12,5 +12,7 @@ public interface ObservationsRepository extends Repository<Observation, Integer>
 	
 	Collection<Observation> findAll() throws DataAccessException;
 
+	void save(Observation observation);
+
 
 }

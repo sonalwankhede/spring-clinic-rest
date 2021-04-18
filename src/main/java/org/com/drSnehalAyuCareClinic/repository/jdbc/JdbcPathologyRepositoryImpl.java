@@ -37,4 +37,10 @@ public class JdbcPathologyRepositoryImpl implements PathologyRepository {
 				BeanPropertyRowMapper.newInstance(Pathology.class));
 		return pathologies;
 	}
+
+	@Override
+	public void save(Pathology pathology) {
+		// TODO Auto-generated method stub
+		
+	}
 }

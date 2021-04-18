@@ -138,6 +138,7 @@ public class VisitRestController {
 		if(visit == null){
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
+		this.clinicService.deletePrescriptionByVisitId(visit.getPrescriptions());
 		this.clinicService.deleteVisit(visit);
 		this.clinicService.evictAllVisitCacheValues();
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

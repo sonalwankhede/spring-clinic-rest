@@ -37,4 +37,10 @@ public class JdbcObservations implements ObservationsRepository{
 				BeanPropertyRowMapper.newInstance(Observation.class));
 		return observations;
 	}
+
+	@Override
+	public void save(Observation observation) {
+		// TODO Auto-generated method stub
+		
+	}
 }

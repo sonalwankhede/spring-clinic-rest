@@ -11,4 +11,6 @@ import org.springframework.data.repository.Repository;
 public interface OtherAllergyRepository extends Repository<OtherAllergy, Integer> {
 	
 	Collection<OtherAllergy> findAll() throws DataAccessException;
+
+	void save(OtherAllergy otherAllergy);
 }

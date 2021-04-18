@@ -11,4 +11,6 @@ import org.springframework.data.repository.Repository;
 public interface KnownCasesRepository extends Repository<KnownCase, Integer> {
 	
 	Collection<KnownCase> findAll() throws DataAccessException;
+
+	void save(KnownCase knownCase);
 }

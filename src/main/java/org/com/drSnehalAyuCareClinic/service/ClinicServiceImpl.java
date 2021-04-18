@@ -159,6 +159,34 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	@CacheEvict("visits")
 	public void evictAllVisitCacheValues() {}
+	
+	@Override
+	@CacheEvict("diagnosis")
+	public void evictAllDiagnosisCacheValues() {}
+	
+	@Override
+	@CacheEvict("drugAllergies")
+	public void evictAllDrugAllergiesCacheValues() {}
+
+	@Override
+	@CacheEvict("otherAllergies")
+	public void evictAllOtherAllergiesCacheValues() {}
+
+	@Override
+	@CacheEvict("history")
+	public void evictAllHistoryCacheValues() {}
+
+	@Override
+	@CacheEvict("observations")
+	public void evictAllObservationCacheValues() {}
+
+	@Override
+	@CacheEvict("radiology")
+	public void evictAllRadiologyCacheValues() {}
+	
+	@Override
+	@CacheEvict("pathology")
+	public void evictAllPathologyCacheValues() {}
 
 	@Override
 	public Drug findDrugById(int drugId) {
@@ -230,6 +258,48 @@ public class ClinicServiceImpl implements ClinicService {
 			 diagnosisRepository.save(diagnosis);
 		}
 	}
+	
+	@Override
+	public void addDrugAllergies(@Valid DrugAllergy[] newlyAddedDrugAllergies) {
+		for (DrugAllergy drugAllergy : newlyAddedDrugAllergies) {
+			 drugAllergyRepository.save(drugAllergy);
+		}
+	}
+
+	@Override
+	public void addOtherAllergies(@Valid OtherAllergy[] newlyAddedOtherAllergies) {
+		for (OtherAllergy otherAllergy : newlyAddedOtherAllergies) {
+			 otherAllergyRepository.save(otherAllergy);
+		}
+	}
+
+	@Override
+	public void addKnownCases(@Valid KnownCase[] newlyAddedKnownCases) {
+		for (KnownCase knownCase : newlyAddedKnownCases) {
+			 knownCasesRepository.save(knownCase);
+		}
+	}
+
+	@Override
+	public void addObservations(@Valid Observation[] newlyAddedObservations) {
+		for (Observation observation : newlyAddedObservations) {
+			 observationsRepository.save(observation);
+		}
+	}
+
+	@Override
+	public void addRadioScans(@Valid Radiology[] newlyAddedRadioScans) {
+		for (Radiology radiology : newlyAddedRadioScans) {
+			 radiologyRepository.save(radiology);
+		}
+	}
+
+	@Override
+	public void addPathScans(@Valid Pathology[] newlyAddedPathScans) {
+		for (Pathology pathology : newlyAddedPathScans) {
+			 pathologyRepository.save(pathology);
+		}
+	}
 
 	@Override
 	@Cacheable("otherAllergies")
@@ -252,7 +322,6 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	@Cacheable("radiology")
 	public Collection<Radiology> findRadiology() {
-
 		return radiologyRepository.findAll();
 	}
 

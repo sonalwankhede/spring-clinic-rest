@@ -76,4 +76,17 @@ public interface ClinicService {
 	void evictAllVisitCacheValues();
 	List<Visit> findVisitsByPatientId(int patientId);
 	void deletePrescriptionByVisitId(List<Prescription> prescriptions);
+	void addDrugAllergies(@Valid DrugAllergy[] newlyAddedDrugAllergies);
+	void addOtherAllergies(@Valid OtherAllergy[] newlyAddedOtherAllergies);
+	void addKnownCases(@Valid KnownCase[] newlyAddedKnownCases);
+	void addObservations(@Valid Observation[] newlyAddedObservations);
+	void addRadioScans(@Valid Radiology[] newlyAddedRadioScans);
+	void addPathScans(@Valid Pathology[] newlyAddedPathScans);
+	void evictAllDiagnosisCacheValues();
+	void evictAllDrugAllergiesCacheValues();
+	void evictAllOtherAllergiesCacheValues();
+	void evictAllHistoryCacheValues();
+	void evictAllObservationCacheValues();
+	void evictAllRadiologyCacheValues();
+	void evictAllPathologyCacheValues();
 }

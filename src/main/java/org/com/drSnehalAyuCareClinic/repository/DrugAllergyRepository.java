@@ -12,4 +12,6 @@ public interface DrugAllergyRepository extends Repository<DrugAllergy, Integer> 
 	
 	Collection<DrugAllergy> findAll() throws DataAccessException;
 
+	void save(DrugAllergy drugAllergy);
+
 }

@@ -45,5 +45,11 @@ public class JdbcAllergyRepositoryImpl implements DrugAllergyRepository {
 	    return allergies;
 	}
 
+	@Override
+	public void save(DrugAllergy drugAllergy) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

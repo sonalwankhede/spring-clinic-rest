@@ -44,4 +44,10 @@ public class JdbcKnownCasesRepositoryImpl implements KnownCasesRepository{
 		return knownCases;
 	}
 
+	@Override
+	public void save(KnownCase knownCase) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

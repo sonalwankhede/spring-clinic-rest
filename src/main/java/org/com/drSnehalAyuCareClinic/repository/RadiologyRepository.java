@@ -11,4 +11,6 @@ public interface RadiologyRepository extends Repository<Radiology, Integer> {
 	
 	Collection<Radiology> findAll() throws DataAccessException;
 
+	void save(Radiology radiology);
+
 }

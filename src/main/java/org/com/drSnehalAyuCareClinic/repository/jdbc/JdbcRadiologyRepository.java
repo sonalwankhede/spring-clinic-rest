@@ -37,4 +37,10 @@ public class JdbcRadiologyRepository implements RadiologyRepository{
 		return radiologies;
 	}
 
+	@Override
+	public void save(Radiology radiology) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

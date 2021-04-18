@@ -38,4 +38,10 @@ public class JdbcOtherAllergyRepository implements OtherAllergyRepository{
 		return allergies;
 	}
 
+	@Override
+	public void save(OtherAllergy otherAllergy) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

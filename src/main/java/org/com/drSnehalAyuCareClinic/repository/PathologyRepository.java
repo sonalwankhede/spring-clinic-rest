@@ -11,4 +11,6 @@ import org.springframework.data.repository.Repository;
 public interface PathologyRepository extends Repository<Pathology, Integer> {
 	
 	Collection<Pathology> findAll() throws DataAccessException;
+
+	void save(Pathology pathology);
 }
