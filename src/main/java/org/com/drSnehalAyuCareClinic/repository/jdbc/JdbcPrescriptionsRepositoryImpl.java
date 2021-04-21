@@ -36,6 +36,7 @@ public class JdbcPrescriptionsRepositoryImpl implements PrescriptionsRepository 
 	protected MapSqlParameterSource createPrescriptionsParameterSource(Prescription prescription) {
 		return new MapSqlParameterSource()
 				.addValue("id", prescription.getId())
+				.addValue("serial_number", prescription.getSerialNumber())
 				.addValue("visit_id", prescription.getVisit().getId())
 				.addValue("drug", prescription.getDrug())
 				.addValue("duration", prescription.getDuration())
@@ -50,7 +51,7 @@ public class JdbcPrescriptionsRepositoryImpl implements PrescriptionsRepository 
 			prescription.setId(newKey.intValue());
 		} else {
 			this.namedParameterJdbcTemplate.update(
-					"UPDATE prescriptions SET prescriptions_id=:prescriptionsDate, drug=:drug, duration=:duration,"
+					"UPDATE prescriptions SET prescriptions_id=:prescriptionsDate, serial_number=:serialNumber, drug=:drug, duration=:duration,"
 					+ "dose=:dose, instructions=:instructions WHERE id=:id ",
 					createPrescriptionsParameterSource(prescription));
 		}
@@ -89,13 +90,14 @@ public class JdbcPrescriptionsRepositoryImpl implements PrescriptionsRepository 
 			Visit visit = new Visit();
 			
 			prescription.setId(rs.getInt("id"));
+			prescription.setSerialNumber(rs.getInt("seial_number"));
 			prescription.setDrug(rs.getString("drug"));
 			prescription.setDuration(rs.getString("duration"));
 			prescription.setDose(rs.getString("dose"));
 			Map<String, Object> params = new HashMap<>();
 			params.put("id", rs.getInt("visits_id"));
 			visit = JdbcPrescriptionsRepositoryImpl.this.namedParameterJdbcTemplate.queryForObject(
-					"SELECT prescriptions.id as prescriptions_id, prescriptions.drug, prescriptions.dose ,prescriptions.duration, prescriptions.instructions"
+					"SELECT prescriptions.id as prescriptions_id, prescriptions.serial_number, prescriptions.drug, prescriptions.dose ,prescriptions.duration, prescriptions.instructions"
 					+ " visits.id as  FROM visits WHERE visits.id=:id",
 					params,
 					new JdbcVisitRowMapper());

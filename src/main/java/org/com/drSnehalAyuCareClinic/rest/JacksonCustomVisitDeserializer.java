@@ -84,6 +84,7 @@ public class JacksonCustomVisitDeserializer extends StdDeserializer<Visit> {
 			for (JsonNode valueNode : valuesNode) {
 				Prescription prescription = new Prescription();
 				prescription.setVisit(visit);
+				prescription.setSerialNumber(valueNode.get("serialNumber").asInt());
 				prescription.setDrug(valueNode.get("drug").asText(null));
 				prescription.setDuration(valueNode.get("duration").asText(null));
 				prescription.setDose(valueNode.get("dose").asText(null));

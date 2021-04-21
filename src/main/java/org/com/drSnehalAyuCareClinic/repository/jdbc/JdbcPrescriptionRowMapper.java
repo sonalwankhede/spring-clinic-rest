@@ -12,6 +12,7 @@ public class JdbcPrescriptionRowMapper implements RowMapper<Prescription> {
 	public Prescription mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Prescription prescription = new Prescription();
         prescription.setId(rs.getInt("id"));
+        prescription.setSerialNumber(rs.getInt("serial_number"));
         prescription.setDrug(rs.getString("drug"));
         prescription.setDuration(rs.getString("duration"));
         prescription.setInstructions(rs.getString("instructions"));

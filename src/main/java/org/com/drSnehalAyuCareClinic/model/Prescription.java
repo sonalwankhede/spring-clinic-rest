@@ -22,6 +22,9 @@ public class Prescription extends BaseEntity {
 	@JoinColumn(name = "visit_id", referencedColumnName="id")
 	private Visit visit;
 	
+	@Column(name = "serial_number")
+	private int serialNumber;
+	
 	@Column(name = "drug")
 	private String drug;
 	
@@ -34,6 +37,14 @@ public class Prescription extends BaseEntity {
 	@Column(name = "instructions")
 	private String instructions;
 	
+	public int getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(int serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
 	public Visit getVisit() {
 		return visit;
 	}

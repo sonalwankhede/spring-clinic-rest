@@ -105,7 +105,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 					params,
 					new JdbcVisitRowMapperExt());
 			List<Prescription> prescriptions = this.namedParameterJdbcTemplate.query(
-		            "SELECT id , drug, duration, dose, instructions, "
+		            "SELECT id , serial_number, drug, duration, dose, instructions, "
 		            + "WHERE visit_id=:id ",
 		            params, new JdbcPrescriptionRowMapper());
 			for(Prescription prescription: prescriptions) {

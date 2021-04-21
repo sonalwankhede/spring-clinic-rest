@@ -89,6 +89,7 @@ public class JacksonCustomVisitSerializer extends StdSerializer<Visit> {
 			} else {
 				jgen.writeNumberField("id", prescription.getId());
 			}
+			jgen.writeNumberField("serialNumber", prescription.getSerialNumber());
 			jgen.writeStringField("drug", prescription.getDrug());
 			jgen.writeStringField("duration", prescription.getDuration());
 			jgen.writeStringField("dose", prescription.getDose());

@@ -35,6 +35,7 @@ public class JacksonCustomPrescriptionDeserializer  extends StdDeserializer<Pres
 		if (!(prescriptionsId == 0)) {
 			prescription.setId(prescriptionsId);
 		}
+		prescription.setSerialNumber(node.get("serialNumber").asInt());
 		prescription.setDrug(node.get("drug").asText(null));
 		prescription.setDuration(node.get("duration").asText(null));
 		prescription.setDose(node.get("dose").asText(null));
