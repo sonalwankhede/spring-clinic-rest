@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import org.com.drSnehalAyuCareClinic.model.Diagnosis;
 import org.com.drSnehalAyuCareClinic.model.Drug;
 import org.com.drSnehalAyuCareClinic.model.DrugAllergy;
+import org.com.drSnehalAyuCareClinic.model.DrugUpdateRequest;
 import org.com.drSnehalAyuCareClinic.model.KnownCase;
 import org.com.drSnehalAyuCareClinic.model.Observation;
 import org.com.drSnehalAyuCareClinic.model.OtherAllergy;
@@ -89,4 +90,6 @@ public interface ClinicService {
 	void evictAllObservationCacheValues();
 	void evictAllRadiologyCacheValues();
 	void evictAllPathologyCacheValues();
+	void deleteDrugs(Collection<Integer> drugIds);
+	void updateDrugs(@Valid DrugUpdateRequest request);
 }

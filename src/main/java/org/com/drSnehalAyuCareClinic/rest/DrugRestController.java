@@ -23,6 +23,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.com.drSnehalAyuCareClinic.model.Drug;
+import org.com.drSnehalAyuCareClinic.model.DrugUpdateRequest;
 import org.com.drSnehalAyuCareClinic.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -127,6 +128,25 @@ public class DrugRestController {
    		this.clinicService.evictAllDrugCacheValues();
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
+    
+    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+   	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "application/json")
+   	@Transactional
+   	public ResponseEntity<Void> deleteMultipleInventory(@RequestBody @Valid Collection<Integer> drugIds){
+
+   		this.clinicService.deleteDrugs(drugIds);
+      		this.clinicService.evictAllDrugCacheValues();
+   		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+   	}
+    
+    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+   	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json")
+   	@Transactional
+   	public ResponseEntity<Void> updateMultipleInventory(@RequestBody DrugUpdateRequest request){
+   		this.clinicService.updateDrugs(request);
+      		this.clinicService.evictAllDrugCacheValues();
+   		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+   	}
 
     @PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")

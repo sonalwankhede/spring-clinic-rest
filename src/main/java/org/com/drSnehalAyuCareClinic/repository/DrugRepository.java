@@ -73,5 +73,4 @@ public interface DrugRepository {
 	 */
 	void delete(Drug drug) throws DataAccessException;
 
-
 }

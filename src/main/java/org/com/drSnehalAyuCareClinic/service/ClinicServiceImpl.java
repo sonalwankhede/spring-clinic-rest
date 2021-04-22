@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import org.com.drSnehalAyuCareClinic.model.Diagnosis;
 import org.com.drSnehalAyuCareClinic.model.Drug;
 import org.com.drSnehalAyuCareClinic.model.DrugAllergy;
+import org.com.drSnehalAyuCareClinic.model.DrugUpdateRequest;
 import org.com.drSnehalAyuCareClinic.model.KnownCase;
 import org.com.drSnehalAyuCareClinic.model.Observation;
 import org.com.drSnehalAyuCareClinic.model.OtherAllergy;
@@ -207,6 +208,17 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public void deleteDrug(Drug drug) {
 		drugRepository.delete(drug);
+	}
+
+	@Override
+	public void deleteDrugs(Collection<Integer> drugIds) {
+		commonComponent.deleteDrugs(drugIds);
+	}
+
+	
+	@Override
+	public void updateDrugs(@Valid DrugUpdateRequest request) {
+		commonComponent.updateDrugs(request.getIds(), request.getFieldName(), request.getFieldValue());
 	}
 
 	@Override

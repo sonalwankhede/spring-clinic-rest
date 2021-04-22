@@ -2,6 +2,7 @@ package org.com.drSnehalAyuCareClinic.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,5 +59,23 @@ public class CommonComponent {
 			prescription_params.put("id", prescription.getId());
 			this.namedParameterJdbcTemplate.update("DELETE FROM prescriptions WHERE id=:id", prescription_params);
 		}		
+	}
+
+	@Transactional
+	public void deleteDrugs(Collection<Integer> drugIds) {
+		Map<String, Object> drug_params = new HashMap<>();
+		for (int index: drugIds) {
+			drug_params.put("id", index);
+			this.namedParameterJdbcTemplate.update("DELETE FROM Drugs WHERE id=:id", drug_params);
+		}
+	}
+	
+	@Transactional
+	public void updateDrugs(Collection<Integer> drugIds, String fieldName, String fieldValue) {
+		Map<String, Object> drug_params = new HashMap<>();
+		for (int index: drugIds) {
+			drug_params.put("id", index);
+			this.namedParameterJdbcTemplate.update("update Drugs set " + fieldName + " = '" + fieldValue + "' WHERE id=:id", drug_params);
+		}
 	}
 }

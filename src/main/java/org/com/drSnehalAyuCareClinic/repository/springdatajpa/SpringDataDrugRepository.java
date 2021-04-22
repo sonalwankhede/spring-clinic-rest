@@ -17,8 +17,8 @@ package org.com.drSnehalAyuCareClinic.repository.springdatajpa;
 
 import org.com.drSnehalAyuCareClinic.repository.DrugRepository;
 import org.springframework.context.annotation.Profile;
-import org.com.drSnehalAyuCareClinic.model.Drug;
 import org.springframework.data.repository.Repository;
+import org.com.drSnehalAyuCareClinic.model.Drug;
 
 /**
  * Spring Data JPA specialization of the {@link PatientRepository} interface
