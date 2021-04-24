@@ -63,7 +63,7 @@ public class PatientRestController {
 		return new ResponseEntity<Collection<Patient>>(patients, HttpStatus.OK);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Collection<Patient>> getPatients() {
 		Collection<Patient> patients = this.clinicService.findAllPatients();
@@ -73,7 +73,7 @@ public class PatientRestController {
 		return new ResponseEntity<Collection<Patient>>(patients, HttpStatus.OK);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{patientId}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Patient> getPatient(@PathVariable("patientId") int patientId) {
 		Patient patient = null;
@@ -84,15 +84,15 @@ public class PatientRestController {
 		return new ResponseEntity<Patient>(patient, HttpStatus.OK);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Patient> addPatient(@RequestBody @Valid Patient patient, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
 		if (bindingResult.hasErrors() || patient.getId() != null) {
-             BindingErrorsResponse errors = new BindingErrorsResponse(patient.getId());
-			 errors.addAllErrors(bindingResult);
-			 headers.add("errors", errors.toJSON());
+			BindingErrorsResponse errors = new BindingErrorsResponse(patient.getId());
+			errors.addAllErrors(bindingResult);
+			headers.add("errors", errors.toJSON());
 			return new ResponseEntity<Patient>(headers, HttpStatus.BAD_REQUEST);
 		}
 		this.clinicService.savePatient(patient);
@@ -101,12 +101,12 @@ public class PatientRestController {
 		return new ResponseEntity<Patient>(patient, headers, HttpStatus.CREATED);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{patientId}", method = RequestMethod.PUT, produces = "application/json")
 	public ResponseEntity<Patient> updatePatient(@PathVariable("patientId") int patientId, @RequestBody @Valid Patient patient,
 			BindingResult bindingResult, UriComponentsBuilder ucBuilder) {
-	    boolean bodyIdMatchesPathId = patient.getId() == null || patientId == patient.getId();
-	    HttpHeaders headers = new HttpHeaders();
+		boolean bodyIdMatchesPathId = patient.getId() == null || patientId == patient.getId();
+		HttpHeaders headers = new HttpHeaders();
 		if (bindingResult.hasErrors() || !bodyIdMatchesPathId) {
 			BindingErrorsResponse errors = new BindingErrorsResponse(patientId, patient.getId());
 			errors.addAllErrors(bindingResult);
@@ -133,7 +133,7 @@ public class PatientRestController {
 		return new ResponseEntity<Patient>(currentPatient, HttpStatus.NO_CONTENT);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{patientId}", method = RequestMethod.DELETE, produces = "application/json")
 	@Transactional
 	public ResponseEntity<Void> deletePatient(@PathVariable("patientId") int patientId) {

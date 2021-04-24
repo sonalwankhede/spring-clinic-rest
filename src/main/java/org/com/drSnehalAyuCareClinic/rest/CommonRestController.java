@@ -166,6 +166,18 @@ public class CommonRestController {
 	}
 	
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@RequestMapping(value = "/pathology/delete", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Pathology[]> deletePathScans(@RequestBody @Valid Pathology[] removedPathScans, BindingResult bindingResult,
+			UriComponentsBuilder ucBuilder) {
+		HttpHeaders headers = new HttpHeaders();
+		if(removedPathScans != null && removedPathScans.length > 0 ) {
+			this.clinicService.deletePathScans(removedPathScans);
+			this.clinicService.evictAllPathologyCacheValues();
+		}
+		return new ResponseEntity<Pathology[]>(removedPathScans, headers, HttpStatus.CREATED);
+	}
+	
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/radiology", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Collection<Radiology>> getRadiologyScans() {
 		Collection<Radiology> radiologies = this.clinicService.findRadiology();
@@ -185,5 +197,17 @@ public class CommonRestController {
 			this.clinicService.evictAllRadiologyCacheValues();
 		}
 		return new ResponseEntity<Radiology[]>(newlyAddedRadioScans, headers, HttpStatus.CREATED);
+	}
+	
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@RequestMapping(value = "/radiology/delete", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Radiology[]> deleteRadioScans(@RequestBody @Valid Radiology[] removedScans, BindingResult bindingResult,
+			UriComponentsBuilder ucBuilder) {
+		HttpHeaders headers = new HttpHeaders();
+		if(removedScans != null && removedScans.length > 0 ) {
+			this.clinicService.deleteRadioScans(removedScans);
+			this.clinicService.evictAllRadiologyCacheValues();
+		}
+		return new ResponseEntity<Radiology[]>(removedScans, headers, HttpStatus.CREATED);
 	}
 }

@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+import javax.validation.Valid;
 
 import org.com.drSnehalAyuCareClinic.model.Drug;
+import org.com.drSnehalAyuCareClinic.model.Pathology;
 import org.com.drSnehalAyuCareClinic.model.Prescription;
+import org.com.drSnehalAyuCareClinic.model.Radiology;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -76,6 +79,24 @@ public class CommonComponent {
 		for (int index: drugIds) {
 			drug_params.put("id", index);
 			this.namedParameterJdbcTemplate.update("update Drugs set " + fieldName + " = '" + fieldValue + "' WHERE id=:id", drug_params);
+		}
+	}
+
+	@Transactional
+	public void deletePathScans(@Valid Pathology[] removedPathScans) {
+		Map<String, Object> params = new HashMap<>();
+		for (Pathology path: removedPathScans) {
+			params.put("pathology", path.getPathology());
+			this.namedParameterJdbcTemplate.update("DELETE FROM pathology where pathology=:pathology", params);
+		}
+	}
+	
+	@Transactional
+	public void deleteRadioScans(@Valid Radiology[] removedScans) {
+		Map<String, Object> params = new HashMap<>();
+		for (Radiology path: removedScans) {
+			params.put("radiology", path.getRadiology());
+			this.namedParameterJdbcTemplate.update("DELETE FROM radiology where radiology=:radiology", params);
 		}
 	}
 }

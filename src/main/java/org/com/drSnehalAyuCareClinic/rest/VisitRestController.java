@@ -37,7 +37,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -54,7 +53,7 @@ public class VisitRestController {
 	@Autowired
 	private ClinicService clinicService;
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Collection<Visit>> getAllVisits(){
 		Collection<Visit> visits = new ArrayList<Visit>();
@@ -65,7 +64,7 @@ public class VisitRestController {
 		return new ResponseEntity<Collection<Visit>>(visits, HttpStatus.OK);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{visitId}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Visit> getVisit(@PathVariable("visitId") int visitId){
 		Visit visit = this.clinicService.findVisitById(visitId);
@@ -75,7 +74,7 @@ public class VisitRestController {
 		return new ResponseEntity<Visit>(visit, HttpStatus.OK);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Visit> addVisit(@RequestBody @Valid Visit visit, BindingResult bindingResult, UriComponentsBuilder ucBuilder){
 		BindingErrorsResponse errors = new BindingErrorsResponse();
@@ -90,7 +89,7 @@ public class VisitRestController {
 		headers.setLocation(ucBuilder.path("/api/visits/{id}").buildAndExpand(visit.getId()).toUri());
 		return new ResponseEntity<Visit>(visit, headers, HttpStatus.CREATED);
 	}
-   
+
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{visitId}", method = RequestMethod.PUT, produces = "application/json")
 	public ResponseEntity<Visit> updateVisit(@PathVariable("visitId") int visitId, @RequestBody @Valid Visit visit, BindingResult bindingResult){
@@ -130,7 +129,7 @@ public class VisitRestController {
 		return new ResponseEntity<Visit>(currentVisit, HttpStatus.NO_CONTENT);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{visitId}", method = RequestMethod.DELETE, produces = "application/json")
 	@Transactional
 	public ResponseEntity<Void> deleteVisit(@PathVariable("visitId") int visitId){
@@ -144,13 +143,13 @@ public class VisitRestController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
-   	@RequestMapping(value = "/viewAll/{patientId}", method = RequestMethod.GET, produces = "application/json")
-   	public ResponseEntity<List<Visit>> getVisitsByPatientId(@PathVariable("patientId") int patientId){
-   		List<Visit> visits = this.clinicService.findVisitsByPatientId(patientId);
-   		if(visits == null || visits.isEmpty() ){
-   			return new ResponseEntity<List<Visit>>(HttpStatus.NOT_FOUND);
-   		}
-   		return new ResponseEntity<List<Visit>>(visits, HttpStatus.OK);
-   	}
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@RequestMapping(value = "/viewAll/{patientId}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<Visit>> getVisitsByPatientId(@PathVariable("patientId") int patientId){
+		List<Visit> visits = this.clinicService.findVisitsByPatientId(patientId);
+		if(visits == null || visits.isEmpty() ){
+			return new ResponseEntity<List<Visit>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Visit>>(visits, HttpStatus.OK);
+	}
 }

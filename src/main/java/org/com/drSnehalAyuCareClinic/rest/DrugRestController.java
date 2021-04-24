@@ -52,7 +52,7 @@ public class DrugRestController {
 	@Autowired
 	private ClinicService clinicService;
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{drugId}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Drug> getInventory(@PathVariable("drugId") int drugId){
 		Drug drug = this.clinicService.findDrugById(drugId);
@@ -62,7 +62,7 @@ public class DrugRestController {
 		return new ResponseEntity<Drug>(drug, HttpStatus.OK);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Drug> addInventory(@RequestBody @Valid Drug drug, BindingResult bindingResult, UriComponentsBuilder ucBuilder){
 		BindingErrorsResponse errors = new BindingErrorsResponse();
@@ -73,27 +73,27 @@ public class DrugRestController {
 			return new ResponseEntity<Drug>(headers, HttpStatus.BAD_REQUEST);
 		}
 		this.clinicService.saveDrug(drug);
-   		this.clinicService.evictAllDrugCacheValues();
+		this.clinicService.evictAllDrugCacheValues();
 		headers.setLocation(ucBuilder.path("/api/drugs/{id}").buildAndExpand(drug.getId()).toUri());
 		return new ResponseEntity<Drug>(drug, headers, HttpStatus.CREATED);
 	}
-    
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
-   	@RequestMapping(value = "upload", method = RequestMethod.POST, produces = "application/json")
-   	public ResponseEntity<Collection<Drug>> uploadDrugs(@RequestBody @Valid Collection<Drug> drugs, BindingResult bindingResult, UriComponentsBuilder ucBuilder){
-   		BindingErrorsResponse errors = new BindingErrorsResponse();
-   		HttpHeaders headers = new HttpHeaders();
-   		if(bindingResult.hasErrors() || (drugs == null)){
-   			errors.addAllErrors(bindingResult);
-   			headers.add("errors", errors.toJSON());
-   			return new ResponseEntity<Collection<Drug>>(headers, HttpStatus.BAD_REQUEST);
-   		}
-   		this.clinicService.saveAllDrugs(drugs);
-   		this.clinicService.evictAllDrugCacheValues();
-   		return new ResponseEntity<Collection<Drug>>(drugs, headers, HttpStatus.CREATED);
-   	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@RequestMapping(value = "upload", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Collection<Drug>> uploadDrugs(@RequestBody @Valid Collection<Drug> drugs, BindingResult bindingResult, UriComponentsBuilder ucBuilder){
+		BindingErrorsResponse errors = new BindingErrorsResponse();
+		HttpHeaders headers = new HttpHeaders();
+		if(bindingResult.hasErrors() || (drugs == null)){
+			errors.addAllErrors(bindingResult);
+			headers.add("errors", errors.toJSON());
+			return new ResponseEntity<Collection<Drug>>(headers, HttpStatus.BAD_REQUEST);
+		}
+		this.clinicService.saveAllDrugs(drugs);
+		this.clinicService.evictAllDrugCacheValues();
+		return new ResponseEntity<Collection<Drug>>(drugs, headers, HttpStatus.CREATED);
+	}
+
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{drugId}", method = RequestMethod.PUT, produces = "application/json")
 	public ResponseEntity<Drug> updateInventory(@PathVariable("drugId") int drugId, @RequestBody @Valid Drug drug, BindingResult bindingResult){
 		BindingErrorsResponse errors = new BindingErrorsResponse();
@@ -112,11 +112,11 @@ public class DrugRestController {
 		currentDrug.setFormOfDrugs(drug.getFormOfDrugs());
 		currentDrug.setStrength(drug.getStrength());
 		this.clinicService.saveDrug(currentDrug);
-   		this.clinicService.evictAllDrugCacheValues();
+		this.clinicService.evictAllDrugCacheValues();
 		return new ResponseEntity<Drug>(currentDrug, HttpStatus.OK);
 	}
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "/{drugId}", method = RequestMethod.DELETE, produces = "application/json")
 	@Transactional
 	public ResponseEntity<Void> deleteInventory(@PathVariable("drugId") int drugId){
@@ -125,30 +125,30 @@ public class DrugRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 		this.clinicService.deleteDrug(drug);
-   		this.clinicService.evictAllDrugCacheValues();
+		this.clinicService.evictAllDrugCacheValues();
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-    
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
-   	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "application/json")
-   	@Transactional
-   	public ResponseEntity<Void> deleteMultipleInventory(@RequestBody @Valid Collection<Integer> drugIds){
 
-   		this.clinicService.deleteDrugs(drugIds);
-      		this.clinicService.evictAllDrugCacheValues();
-   		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-   	}
-    
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
-   	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json")
-   	@Transactional
-   	public ResponseEntity<Void> updateMultipleInventory(@RequestBody DrugUpdateRequest request){
-   		this.clinicService.updateDrugs(request);
-      		this.clinicService.evictAllDrugCacheValues();
-   		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-   	}
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "application/json")
+	@Transactional
+	public ResponseEntity<Void> deleteMultipleInventory(@RequestBody @Valid Collection<Integer> drugIds){
 
-    @PreAuthorize( "hasRole(@roles.ADMIN)" )
+		this.clinicService.deleteDrugs(drugIds);
+		this.clinicService.evictAllDrugCacheValues();
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json")
+	@Transactional
+	public ResponseEntity<Void> updateMultipleInventory(@RequestBody DrugUpdateRequest request){
+		this.clinicService.updateDrugs(request);
+		this.clinicService.evictAllDrugCacheValues();
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Collection<Drug>> getAllDrugs(){
 		Collection<Drug> drugsList = new ArrayList<Drug>();
@@ -158,5 +158,5 @@ public class DrugRestController {
 		}
 		return new ResponseEntity<Collection<Drug>>(drugsList, HttpStatus.OK);
 	}
-    
+
 }

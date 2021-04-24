@@ -92,4 +92,6 @@ public interface ClinicService {
 	void evictAllPathologyCacheValues();
 	void deleteDrugs(Collection<Integer> drugIds);
 	void updateDrugs(@Valid DrugUpdateRequest request);
+	void deletePathScans(@Valid Pathology[] removedPathScans);
+	void deleteRadioScans(@Valid Radiology[] removedScans);
 }

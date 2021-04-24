@@ -307,10 +307,20 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
+	public void deleteRadioScans(@Valid Radiology[] removedScans) {
+		commonComponent.deleteRadioScans(removedScans);
+	}
+
+	@Override
 	public void addPathScans(@Valid Pathology[] newlyAddedPathScans) {
 		for (Pathology pathology : newlyAddedPathScans) {
 			 pathologyRepository.save(pathology);
 		}
+	}
+
+	@Override
+	public void deletePathScans(@Valid Pathology[] removedPathScans) {
+		commonComponent.deletePathScans(removedPathScans);
 	}
 
 	@Override
