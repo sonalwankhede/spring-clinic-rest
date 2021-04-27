@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.com.drSnehalAyuCareClinic.model.Role;
-import org.com.drSnehalAyuCareClinic.model.User;
+import org.com.drSnehalAyuCareClinic.model.UserModel;
 import org.com.drSnehalAyuCareClinic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -32,7 +32,7 @@ public class JdbcUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void save(User user) throws DataAccessException {
+    public void save(UserModel user) throws DataAccessException {
 
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
@@ -46,15 +46,16 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         }
     }
 
-    private User getByUsername(String username) {
+    @Override
+	public UserModel getByUsername(String username) {
 
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         return this.namedParameterJdbcTemplate.queryForObject("SELECT * FROM users WHERE username=:username",
-            params, BeanPropertyRowMapper.newInstance(User.class));
+            params, BeanPropertyRowMapper.newInstance(UserModel.class));
     }
 
-    private void updateUserRoles(User user) {
+    private void updateUserRoles(UserModel user) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", user.getUsername());
         this.namedParameterJdbcTemplate.update("DELETE FROM roles WHERE username=:username", params);

@@ -45,7 +45,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+@CrossOrigin(exposedHeaders = "errors, content-type, Access-Control-Allow-Origin")
 @RequestMapping("api/drugs")
 public class DrugRestController {
 

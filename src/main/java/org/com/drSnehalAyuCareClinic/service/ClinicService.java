@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.com.drSnehalAyuCareClinic.model.Complaints;
 import org.com.drSnehalAyuCareClinic.model.Diagnosis;
 import org.com.drSnehalAyuCareClinic.model.Drug;
 import org.com.drSnehalAyuCareClinic.model.DrugAllergy;
@@ -94,4 +95,5 @@ public interface ClinicService {
 	void updateDrugs(@Valid DrugUpdateRequest request);
 	void deletePathScans(@Valid Pathology[] removedPathScans);
 	void deleteRadioScans(@Valid Radiology[] removedScans);
+	Collection<Complaints> findAllComplaints();
 }

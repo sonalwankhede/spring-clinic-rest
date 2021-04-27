@@ -1,11 +1,5 @@
 package org.com.drSnehalAyuCareClinic.rest;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.com.drSnehalAyuCareClinic.model.Prescription;
@@ -17,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+@CrossOrigin(exposedHeaders = "errors, content-type, Access-Control-Allow-Origin")
 @RequestMapping("api/prescriptions")
 public class PrescriptionRestController {
 

@@ -1,9 +1,10 @@
 package org.com.drSnehalAyuCareClinic.service;
 
 import org.com.drSnehalAyuCareClinic.model.Role;
-import org.com.drSnehalAyuCareClinic.model.User;
+import org.com.drSnehalAyuCareClinic.model.UserModel;
 import org.com.drSnehalAyuCareClinic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(User user) throws Exception {
+    public void saveUser(UserModel user) throws Exception {
 
         if(user.getRoles() == null || user.getRoles().isEmpty()) {
             throw new Exception("User must have at least a role set!");
@@ -32,5 +33,16 @@ public class UserServiceImpl implements UserService {
         }
 
         userRepository.save(user);
+    }
+    @Override
+    public UserModel loadUserByUsername(final String username) throws UsernameNotFoundException {
+       UserModel userEntity = null;
+       try {
+          userEntity = userRepository.getByUsername(username);
+          return userEntity;
+       } catch (Exception e) {
+          e.printStackTrace();
+          throw new UsernameNotFoundException("User " + username + " was not found in the database");
+       }
     }
 }

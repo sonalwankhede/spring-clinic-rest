@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserModel {
 
     @Id
     @Column(name = "username")
@@ -30,7 +30,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public String getUsername() {
+	public String getUsername() {
         return username;
     }
 

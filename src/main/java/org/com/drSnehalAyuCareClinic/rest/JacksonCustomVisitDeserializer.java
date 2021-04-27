@@ -3,10 +3,7 @@ package org.com.drSnehalAyuCareClinic.rest;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 import org.com.drSnehalAyuCareClinic.model.Patient;
 import org.com.drSnehalAyuCareClinic.model.Prescription;
@@ -18,7 +15,6 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 
 /**
  * @author Sonal Wankhede

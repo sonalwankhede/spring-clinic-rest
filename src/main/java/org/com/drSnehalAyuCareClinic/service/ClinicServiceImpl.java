@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.com.drSnehalAyuCareClinic.model.Complaints;
 import org.com.drSnehalAyuCareClinic.model.Diagnosis;
 import org.com.drSnehalAyuCareClinic.model.Drug;
 import org.com.drSnehalAyuCareClinic.model.DrugAllergy;
@@ -33,6 +34,7 @@ import org.com.drSnehalAyuCareClinic.model.Prescription;
 import org.com.drSnehalAyuCareClinic.model.Radiology;
 import org.com.drSnehalAyuCareClinic.model.Visit;
 import org.com.drSnehalAyuCareClinic.repository.CommonComponent;
+import org.com.drSnehalAyuCareClinic.repository.ComplaintsRepository;
 import org.com.drSnehalAyuCareClinic.repository.DiagnosisRepository;
 import org.com.drSnehalAyuCareClinic.repository.DrugAllergyRepository;
 import org.com.drSnehalAyuCareClinic.repository.DrugRepository;
@@ -62,10 +64,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 
 public class ClinicServiceImpl implements ClinicService {
-	
+
 	@Autowired
 	CommonComponent commonComponent;
-	
+
 	private PatientRepository patientRepository;
 	private DrugRepository drugRepository;
 	private DrugAllergyRepository drugAllergyRepository;
@@ -77,6 +79,7 @@ public class ClinicServiceImpl implements ClinicService {
 	private PathologyRepository pathologyRepository; 
 	private RadiologyRepository radiologyRepository;
 	private PrescriptionsRepository prescriptionsRepository;
+	private ComplaintsRepository complaintsRepository;
 
 	@Autowired
 	public ClinicServiceImpl(
@@ -90,7 +93,8 @@ public class ClinicServiceImpl implements ClinicService {
 			ObservationsRepository observationsRepository,
 			PathologyRepository pathologyRepository,
 			RadiologyRepository radiologyRepository,
-			PrescriptionsRepository prescriptionsRepository) {
+			PrescriptionsRepository prescriptionsRepository,
+			ComplaintsRepository complaintsRepository) {
 		this.patientRepository = patientRepository;
 		this.drugRepository = drugRepository;
 		this.drugAllergyRepository = drugAllergyRepository;
@@ -102,6 +106,7 @@ public class ClinicServiceImpl implements ClinicService {
 		this.pathologyRepository = pathologyRepository;
 		this.radiologyRepository = radiologyRepository;
 		this.prescriptionsRepository = prescriptionsRepository;
+		this.complaintsRepository = complaintsRepository;
 	}
 
 	@Override
@@ -148,23 +153,23 @@ public class ClinicServiceImpl implements ClinicService {
 	public Collection<Drug> findAllDrugs() throws DataAccessException {
 		return drugRepository.findAll();
 	}
-	
+
 	@Override
 	@CacheEvict("drugs")
 	public void evictAllDrugCacheValues() {}
-	
+
 	@Override
 	@CacheEvict("patients")
 	public void evictAllPatientCacheValues() {}
-	
+
 	@Override
 	@CacheEvict("visits")
 	public void evictAllVisitCacheValues() {}
-	
+
 	@Override
 	@CacheEvict("diagnosis")
 	public void evictAllDiagnosisCacheValues() {}
-	
+
 	@Override
 	@CacheEvict("drugAllergies")
 	public void evictAllDrugAllergiesCacheValues() {}
@@ -184,7 +189,7 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	@CacheEvict("radiology")
 	public void evictAllRadiologyCacheValues() {}
-	
+
 	@Override
 	@CacheEvict("pathology")
 	public void evictAllPathologyCacheValues() {}
@@ -215,7 +220,7 @@ public class ClinicServiceImpl implements ClinicService {
 		commonComponent.deleteDrugs(drugIds);
 	}
 
-	
+
 	@Override
 	public void updateDrugs(@Valid DrugUpdateRequest request) {
 		commonComponent.updateDrugs(request.getIds(), request.getFieldName(), request.getFieldValue());
@@ -232,7 +237,7 @@ public class ClinicServiceImpl implements ClinicService {
 	public Collection<? extends Visit> findAllVisits() {
 		return visitRepository.findAll();
 	}
-	
+
 	public List<Visit> findVisitsByPatientId(int patientId) {
 		return visitRepository.findByPatientId(patientId);		
 	}
@@ -267,42 +272,42 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public void addNewlyAddedDiagnosis(@Valid Diagnosis[] newlyAddedDiagnosis) {
 		for (Diagnosis diagnosis : newlyAddedDiagnosis) {
-			 diagnosisRepository.save(diagnosis);
+			diagnosisRepository.save(diagnosis);
 		}
 	}
-	
+
 	@Override
 	public void addDrugAllergies(@Valid DrugAllergy[] newlyAddedDrugAllergies) {
 		for (DrugAllergy drugAllergy : newlyAddedDrugAllergies) {
-			 drugAllergyRepository.save(drugAllergy);
+			drugAllergyRepository.save(drugAllergy);
 		}
 	}
 
 	@Override
 	public void addOtherAllergies(@Valid OtherAllergy[] newlyAddedOtherAllergies) {
 		for (OtherAllergy otherAllergy : newlyAddedOtherAllergies) {
-			 otherAllergyRepository.save(otherAllergy);
+			otherAllergyRepository.save(otherAllergy);
 		}
 	}
 
 	@Override
 	public void addKnownCases(@Valid KnownCase[] newlyAddedKnownCases) {
 		for (KnownCase knownCase : newlyAddedKnownCases) {
-			 knownCasesRepository.save(knownCase);
+			knownCasesRepository.save(knownCase);
 		}
 	}
 
 	@Override
 	public void addObservations(@Valid Observation[] newlyAddedObservations) {
 		for (Observation observation : newlyAddedObservations) {
-			 observationsRepository.save(observation);
+			observationsRepository.save(observation);
 		}
 	}
 
 	@Override
 	public void addRadioScans(@Valid Radiology[] newlyAddedRadioScans) {
 		for (Radiology radiology : newlyAddedRadioScans) {
-			 radiologyRepository.save(radiology);
+			radiologyRepository.save(radiology);
 		}
 	}
 
@@ -314,7 +319,7 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public void addPathScans(@Valid Pathology[] newlyAddedPathScans) {
 		for (Pathology pathology : newlyAddedPathScans) {
-			 pathologyRepository.save(pathology);
+			pathologyRepository.save(pathology);
 		}
 	}
 
@@ -360,8 +365,12 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	@Transactional
 	public void deletePrescriptionByVisitId(List<Prescription> prescriptions) {
-		// for (Prescription prescription: prescriptions) {
 		commonComponent.deleteAllPrescriptions(prescriptions);
-		//}
 	}
+
+	@Override
+	public Collection<Complaints> findAllComplaints() {
+		return complaintsRepository.findAll();
+	}
+
 }

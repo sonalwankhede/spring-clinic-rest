@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+@CrossOrigin(exposedHeaders = "errors, content-type, Access-Control-Allow-Origin")
 @RequestMapping("/")
 public class RootRestController {
 

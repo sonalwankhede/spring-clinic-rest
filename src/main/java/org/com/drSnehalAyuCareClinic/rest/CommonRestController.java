@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.com.drSnehalAyuCareClinic.model.Complaints;
 import org.com.drSnehalAyuCareClinic.model.Diagnosis;
 import org.com.drSnehalAyuCareClinic.model.DrugAllergy;
 import org.com.drSnehalAyuCareClinic.model.KnownCase;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+@CrossOrigin(exposedHeaders = "errors, content-type, Access-Control-Allow-Origin")
 @RequestMapping("/api")
 public class CommonRestController {
 	@Autowired
@@ -40,6 +41,16 @@ public class CommonRestController {
 			return new ResponseEntity<Collection<DrugAllergy>>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Collection<DrugAllergy>>(allergies, HttpStatus.OK);
+	}
+	
+	@PreAuthorize( "hasRole(@roles.ADMIN)" )
+	@RequestMapping(value = "/complaints", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<Collection<Complaints>> getComplaints() {
+		Collection<Complaints> complaints = this.clinicService.findAllComplaints();
+		if (complaints.isEmpty()) {
+			return new ResponseEntity<Collection<Complaints>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Collection<Complaints>>(complaints, HttpStatus.OK);
 	}
 	
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
