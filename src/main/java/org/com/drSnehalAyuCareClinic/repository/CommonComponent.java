@@ -75,7 +75,7 @@ public class CommonComponent {
 		Map<String, Object> drug_params = new HashMap<>();
 		for (int index: drugIds) {
 			drug_params.put("id", index);
-			this.namedParameterJdbcTemplate.update("DELETE FROM Drugs WHERE id=:id", drug_params);
+			this.namedParameterJdbcTemplate.update("DELETE FROM drugs WHERE id=:id", drug_params);
 		}
 	}
 	
@@ -84,7 +84,7 @@ public class CommonComponent {
 		Map<String, Object> drug_params = new HashMap<>();
 		for (int index: drugIds) {
 			drug_params.put("id", index);
-			this.namedParameterJdbcTemplate.update("update Drugs set " + fieldName + " = '" + fieldValue + "' WHERE id=:id", drug_params);
+			this.namedParameterJdbcTemplate.update("update drugs set " + fieldName + " = '" + fieldValue + "' WHERE id=:id", drug_params);
 		}
 	}
 
@@ -110,7 +110,7 @@ public class CommonComponent {
 		Map<String, Object> params = new HashMap<>();
 		for (DrugAllergy allergy: removedDrugAllergies) {
 			params.put("allergy", allergy.getAllergy());
-			this.namedParameterJdbcTemplate.update("DELETE FROM DRUG_ALLERGIES where allergy=:allergy", params);
+			this.namedParameterJdbcTemplate.update("DELETE FROM drug_allergies where allergy=:allergy", params);
 		}
 	}
 
@@ -118,7 +118,7 @@ public class CommonComponent {
 		Map<String, Object> params = new HashMap<>();
 		for (OtherAllergy allergy: removedOtherAllergies) {
 			params.put("allergy", allergy.getAllergy());
-			this.namedParameterJdbcTemplate.update("DELETE FROM OTHER_ALLERGIES where allergy=:allergy", params);
+			this.namedParameterJdbcTemplate.update("DELETE FROM other_allergies where allergy=:allergy", params);
 		}
 	}
 
@@ -126,7 +126,7 @@ public class CommonComponent {
 		Map<String, Object> params = new HashMap<>();
 		for (KnownCase issues: removedKnownCases) {
 			params.put("issues", issues.getIssues());
-			this.namedParameterJdbcTemplate.update("DELETE FROM ISSUES where issues=:issues", params);
+			this.namedParameterJdbcTemplate.update("DELETE FROM issues where issues=:issues", params);
 		}
 	}
 
@@ -142,7 +142,7 @@ public class CommonComponent {
 		Map<String, Object> params = new HashMap<>();
 		for (Observation observation: removedObservations) {
 			params.put("observations", observation.getObservations());
-			this.namedParameterJdbcTemplate.update("DELETE FROM Observations where observations=:observations", params);
+			this.namedParameterJdbcTemplate.update("DELETE FROM observations where observations=:observations", params);
 		}
 	}
 

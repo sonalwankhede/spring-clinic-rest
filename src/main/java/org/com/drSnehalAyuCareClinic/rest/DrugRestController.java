@@ -130,7 +130,7 @@ public class DrugRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "delete", method = RequestMethod.POST, produces = "application/json")
 	@Transactional
 	public ResponseEntity<Void> deleteMultipleInventory(@RequestBody @Valid Collection<Integer> drugIds){
 
@@ -140,7 +140,7 @@ public class DrugRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "update", method = RequestMethod.POST, produces = "application/json")
 	@Transactional
 	public ResponseEntity<Void> updateMultipleInventory(@RequestBody DrugUpdateRequest request){
 		this.clinicService.updateDrugs(request);
