@@ -93,13 +93,4 @@ public class JacksonCustomVisitDeserializer extends StdDeserializer<Visit> {
 		return visit;
 	}
 
-//	private String stringFromArray(String fieldName, JsonNode node) {
-//		List<String> diagnosisList = new ArrayList<String>();
-//		ArrayNode arrayNode = (ArrayNode) node.get(fieldName);
-//		Iterator<JsonNode> nodeIterator = arrayNode.elements();
-//		while (nodeIterator.hasNext()) {
-//			diagnosisList.add(nodeIterator.next().asText(null));
-//		}
-//		return String.join(", ", diagnosisList); 
-//	}
 }

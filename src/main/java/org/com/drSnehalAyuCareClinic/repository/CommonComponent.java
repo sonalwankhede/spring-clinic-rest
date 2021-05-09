@@ -10,7 +10,13 @@ import java.util.Map;
 import javax.sql.DataSource;
 import javax.validation.Valid;
 
+import org.com.drSnehalAyuCareClinic.model.Complaints;
+import org.com.drSnehalAyuCareClinic.model.Diagnosis;
 import org.com.drSnehalAyuCareClinic.model.Drug;
+import org.com.drSnehalAyuCareClinic.model.DrugAllergy;
+import org.com.drSnehalAyuCareClinic.model.KnownCase;
+import org.com.drSnehalAyuCareClinic.model.Observation;
+import org.com.drSnehalAyuCareClinic.model.OtherAllergy;
 import org.com.drSnehalAyuCareClinic.model.Pathology;
 import org.com.drSnehalAyuCareClinic.model.Prescription;
 import org.com.drSnehalAyuCareClinic.model.Radiology;
@@ -97,6 +103,54 @@ public class CommonComponent {
 		for (Radiology path: removedScans) {
 			params.put("radiology", path.getRadiology());
 			this.namedParameterJdbcTemplate.update("DELETE FROM radiology where radiology=:radiology", params);
+		}
+	}
+
+	public void deleteDrugAllergies(@Valid DrugAllergy[] removedDrugAllergies) {
+		Map<String, Object> params = new HashMap<>();
+		for (DrugAllergy allergy: removedDrugAllergies) {
+			params.put("allergy", allergy.getAllergy());
+			this.namedParameterJdbcTemplate.update("DELETE FROM DRUG_ALLERGIES where allergy=:allergy", params);
+		}
+	}
+
+	public void deleteOtherAllergies(@Valid OtherAllergy[] removedOtherAllergies) {
+		Map<String, Object> params = new HashMap<>();
+		for (OtherAllergy allergy: removedOtherAllergies) {
+			params.put("allergy", allergy.getAllergy());
+			this.namedParameterJdbcTemplate.update("DELETE FROM OTHER_ALLERGIES where allergy=:allergy", params);
+		}
+	}
+
+	public void deleteKnownCases(@Valid KnownCase[] removedKnownCases) {
+		Map<String, Object> params = new HashMap<>();
+		for (KnownCase issues: removedKnownCases) {
+			params.put("issues", issues.getIssues());
+			this.namedParameterJdbcTemplate.update("DELETE FROM ISSUES where issues=:issues", params);
+		}
+	}
+
+	public void deleteComplaints(@Valid Complaints[] removedComplaintss) {
+		Map<String, Object> params = new HashMap<>();
+		for (Complaints complaints: removedComplaintss) {
+			params.put("complaints", complaints.getComplaints());
+			this.namedParameterJdbcTemplate.update("DELETE FROM complaints where complaints=:complaints", params);
+		}
+	}
+
+	public void deleteObservations(@Valid Observation[] removedObservations) {
+		Map<String, Object> params = new HashMap<>();
+		for (Observation observation: removedObservations) {
+			params.put("observations", observation.getObservations());
+			this.namedParameterJdbcTemplate.update("DELETE FROM Observations where observations=:observations", params);
+		}
+	}
+
+	public void deleteDiagnosis(@Valid Diagnosis[] removedDiagnosis) {
+		Map<String, Object> params = new HashMap<>();
+		for (Diagnosis diagnosis: removedDiagnosis) {
+			params.put("diagnosis", diagnosis.getDiagnosis());
+			this.namedParameterJdbcTemplate.update("DELETE FROM diagnosis where diagnosis=:diagnosis", params);
 		}
 	}
 }

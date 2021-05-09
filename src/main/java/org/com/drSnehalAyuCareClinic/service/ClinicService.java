@@ -96,4 +96,12 @@ public interface ClinicService {
 	void deletePathScans(@Valid Pathology[] removedPathScans);
 	void deleteRadioScans(@Valid Radiology[] removedScans);
 	Collection<Complaints> findAllComplaints();
+	void addComplaints(@Valid Complaints[] newlyAddedComplaints);
+	void deleteDrugAllergies(@Valid DrugAllergy[] removedDrugAllergies);
+	void deleteOtherAllergies(@Valid OtherAllergy[] removedOtherAllergies);
+	void deleteKnownCases(@Valid KnownCase[] removedKnownCases);
+	void deleteComplaints(@Valid Complaints[] removedComplaintss);
+	void deleteObservations(@Valid Observation[] removedObservations);
+	void deleteDiagnosis(@Valid Diagnosis[] removedDiagnosis);
+	void evictAllComplaintsCacheValues();
 }

@@ -59,8 +59,8 @@ public class Visit extends BaseEntity {
 
 	@Column(name = "visit_date")
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
 	private Date date;
 
 	@NotEmpty

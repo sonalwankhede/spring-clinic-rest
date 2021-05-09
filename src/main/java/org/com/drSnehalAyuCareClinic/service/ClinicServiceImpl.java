@@ -187,6 +187,10 @@ public class ClinicServiceImpl implements ClinicService {
 	public void evictAllObservationCacheValues() {}
 
 	@Override
+	@CacheEvict("complaints")
+	public void evictAllComplaintsCacheValues() {}
+
+	@Override
 	@CacheEvict("radiology")
 	public void evictAllRadiologyCacheValues() {}
 
@@ -369,8 +373,46 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
+	@Cacheable("complaints")
 	public Collection<Complaints> findAllComplaints() {
 		return complaintsRepository.findAll();
+	}
+
+	@Override
+	public void addComplaints(@Valid Complaints[] newlyAddedComplaints) {
+		for (Complaints complaint : newlyAddedComplaints) {
+			complaintsRepository.save(complaint);
+		}
+	}
+
+	@Override
+	public void deleteDrugAllergies(@Valid DrugAllergy[] removedDrugAllergies) {
+		commonComponent.deleteDrugAllergies(removedDrugAllergies);
+	}
+
+	@Override
+	public void deleteOtherAllergies(@Valid OtherAllergy[] removedOtherAllergies) {
+		commonComponent.deleteOtherAllergies(removedOtherAllergies);
+	}
+
+	@Override
+	public void deleteKnownCases(@Valid KnownCase[] removedKnownCases) {
+		commonComponent.deleteKnownCases(removedKnownCases);
+	}
+
+	@Override
+	public void deleteComplaints(@Valid Complaints[] removedComplaintss) {
+		commonComponent.deleteComplaints(removedComplaintss);
+	}
+
+	@Override
+	public void deleteObservations(@Valid Observation[] removedObservations) {
+		commonComponent.deleteObservations(removedObservations);
+	}
+
+	@Override
+	public void deleteDiagnosis(@Valid Diagnosis[] removedDiagnosis) {
+		commonComponent.deleteDiagnosis(removedDiagnosis);
 	}
 
 }
