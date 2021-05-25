@@ -258,7 +258,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/knownCase/delete", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/knownCases/delete", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<KnownCase[]> deleteOtherAllergies(@RequestBody @Valid KnownCase[] removedKnownCases, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
