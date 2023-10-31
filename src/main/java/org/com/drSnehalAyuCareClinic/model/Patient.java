@@ -79,7 +79,7 @@ public class Patient extends Person {
 	private String middleName;
 
 	@Column(name= "age")
-	private int age;
+	private String age;
 
 	public String getHistory() {
 		return history;
@@ -133,11 +133,11 @@ public class Patient extends Person {
 		this.drugAllergies = drugAllergies;
 	}
 
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 	

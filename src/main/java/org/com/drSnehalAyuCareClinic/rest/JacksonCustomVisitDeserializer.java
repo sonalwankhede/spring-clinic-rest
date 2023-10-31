@@ -48,11 +48,18 @@ public class JacksonCustomVisitDeserializer extends StdDeserializer<Visit> {
 		patient = mapper.convertValue(patient_node, Patient.class);
 		int visitId = node.get("id").asInt();
 		String visitDateStr = node.get("visitDate").asText(null);
+		String nextFollowUp = node.get("nextFollowUp").asText(null);
 
 		try {
 			Date date = inputFormat.parse(visitDateStr);
 			String formattedDate = formatter.format(date);
 			visitDate = formatter.parse(formattedDate);
+			if(!nextFollowUp.equals("")) {
+				date = inputFormat.parse(nextFollowUp);
+				visit.setNextFollowUp(new SimpleDateFormat("yyyy/MM/dd").format(date));
+			} else {
+				visit.setNextFollowUp(null);
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 			throw new IOException(e);
@@ -74,7 +81,8 @@ public class JacksonCustomVisitDeserializer extends StdDeserializer<Visit> {
 		visit.setObservations(node.get("observations").asText(null));
 		visit.setPatient(patient);
 		visit.setDiagnosis(node.get("diagnosis").asText(null));
-
+		
+		
 		JsonNode valuesNode = node.get("prescriptions");
 		if (valuesNode != null) {
 			for (JsonNode valueNode : valuesNode) {

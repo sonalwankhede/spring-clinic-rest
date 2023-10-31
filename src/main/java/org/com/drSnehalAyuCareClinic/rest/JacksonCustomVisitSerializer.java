@@ -57,7 +57,8 @@ public class JacksonCustomVisitSerializer extends StdSerializer<Visit> {
 		jgen.writeStringField("observations", visit.getObservations());
 		jgen.writeStringField("pathology", visit.getPathology());
 		jgen.writeStringField("radiology", visit.getRadiology());
-
+		jgen.writeStringField("nextFollowUp", visit.getNextFollowUp());
+		
 		Patient patient = visit.getPatient();
 		jgen.writeObjectFieldStart("patient");
 		if (patient.getId() == null) {
@@ -69,7 +70,7 @@ public class JacksonCustomVisitSerializer extends StdSerializer<Visit> {
 		jgen.writeStringField("middleName", patient.getMiddleName());
 		jgen.writeStringField("lastName", patient.getLastName());
 
-		jgen.writeNumberField("age", patient.getAge());
+		jgen.writeStringField("age", patient.getAge());
 		jgen.writeStringField("gender", patient.getGender());
 		jgen.writeStringField("history", patient.getHistory());
 		jgen.writeStringField("otherAllergies", patient.getOtherAllergies());

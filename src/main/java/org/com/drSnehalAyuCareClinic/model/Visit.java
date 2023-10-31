@@ -105,6 +105,9 @@ public class Visit extends BaseEntity {
 	@Column(name = "bmi")
 	private String bmi;
 	
+	@Column(name = "next_follow_up")
+	private String nextFollowUp;
+	
 	@ManyToOne
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
@@ -260,6 +263,14 @@ public class Visit extends BaseEntity {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getNextFollowUp() {
+		return nextFollowUp;
+	}
+
+	public void setNextFollowUp(String nextFollowUp) {
+		this.nextFollowUp = nextFollowUp;
 	}
 
 	public Patient getPatient() {

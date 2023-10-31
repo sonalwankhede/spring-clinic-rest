@@ -67,7 +67,7 @@ public class JacksonCustomPatientSerializer extends StdSerializer<Patient> {
 		jgen.writeStringField("history", patient.getHistory());
 		jgen.writeStringField("drugAllergies", patient.getDrugAllergies());
 		jgen.writeStringField("otherAllergies", patient.getOtherAllergies());
-		jgen.writeNumberField("age", patient.getAge());
+		jgen.writeStringField("age", patient.getAge());
 		
 		// write visits array
 		jgen.writeArrayFieldStart("visits");
@@ -79,6 +79,7 @@ public class JacksonCustomPatientSerializer extends StdSerializer<Patient> {
 				jgen.writeNumberField("id", visit.getId());
 			}
 			jgen.writeStringField("visitDate", formatter.format(visit.getDate()));
+			jgen.writeStringField("nextFollowUp", visit.getNextFollowUp());
 			jgen.writeStringField("diagnosis", visit.getDiagnosis());
 			jgen.writeStringField("complaints", visit.getComplaints());
 			jgen.writeStringField("observations", visit.getObservations());

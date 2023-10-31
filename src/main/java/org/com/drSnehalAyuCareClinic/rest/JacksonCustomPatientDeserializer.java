@@ -60,7 +60,7 @@ public class JacksonCustomPatientDeserializer extends StdDeserializer<Patient> {
 		String drugAllergies = node.get("drugAllergies").asText(null);
 		String otherAllergies = node.get("otherAllergies").asText(null);
 		String history = node.get("history").asText(null);
-		int age = node.get("age").asInt();
+		String age = node.get("age").asText(null);
 		if (node.hasNonNull("id")) {
 			patient.setId(node.get("id").asInt());
 		}

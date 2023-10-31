@@ -28,7 +28,7 @@ public class JdbcVisitRowMapper implements RowMapper<Visit> {
         visit.setObservations(rs.getString("observations"));
         visit.setPathology(rs.getString("pathology"));
         visit.setRadiology(rs.getString("radiology"));
-
+        visit.setNextFollowUp(rs.getString("next_follow_up"));
         return visit;
 	}
 

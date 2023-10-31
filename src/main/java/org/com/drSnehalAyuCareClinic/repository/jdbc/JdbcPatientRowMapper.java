@@ -15,7 +15,7 @@ public class JdbcPatientRowMapper implements RowMapper<JdbcPatient> {
         patient.setLastName(rs.getString("last_name"));
         patient.setMiddleName(rs.getString("middle_name"));
         patient.setGender(rs.getString("gender"));
-        patient.setAge(rs.getInt("age"));
+        patient.setAge(rs.getString("age"));
         patient.setCity(rs.getString("city"));
         patient.setAddress(rs.getString("address"));
         patient.setTelephone(rs.getString("telephone"));

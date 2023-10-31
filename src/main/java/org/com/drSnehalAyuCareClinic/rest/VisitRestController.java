@@ -104,7 +104,6 @@ public class VisitRestController {
 		if(currentVisit == null){
 			return new ResponseEntity<Visit>(HttpStatus.NOT_FOUND);
 		}
-		currentVisit.setDate(visit.getDate());
 		currentVisit.setComplaints(visit.getComplaints());
 		currentVisit.setObservations(visit.getObservations());
 		currentVisit.setDiagnosis(visit.getDiagnosis());
@@ -124,6 +123,7 @@ public class VisitRestController {
 		}
 		currentVisit.setPathology(visit.getPathology());
 		currentVisit.setRadiology(visit.getRadiology());
+		currentVisit.setNextFollowUp(visit.getNextFollowUp());
 		this.clinicService.saveVisit(currentVisit);
 		this.clinicService.evictAllVisitCacheValues();
 		return new ResponseEntity<Visit>(currentVisit, HttpStatus.NO_CONTENT);

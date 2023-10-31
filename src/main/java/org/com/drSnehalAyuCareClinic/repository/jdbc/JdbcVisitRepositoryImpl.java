@@ -67,7 +67,8 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
             .addValue("complaints", visit.getComplaints())
             .addValue("observations", visit.getObservations())
         	.addValue("pathology",visit.getPathology())
-        	.addValue("radiology", visit.getRadiology());
+        	.addValue("radiology", visit.getRadiology())
+        	.addValue("next_follow_up", visit.getNextFollowUp());
             }
 
     @Override
@@ -81,7 +82,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 
         List<Visit> visits = this.namedParameterJdbcTemplate.query(
             "SELECT id as visit_id, visit_date, temperature, pulse, spo2, respiration_rate, blood_pressure, height, weight, bmi, diagnosis, complaints, observations, "
-            + " pathology, radiology FROM visits WHERE patient_id=:id order by visit_date desc",
+            + " pathology, radiology, next_follow_up FROM visits WHERE patient_id=:id order by visit_date desc",
             params, new JdbcVisitRowMapper());
 
         for (Visit visit: visits) {
@@ -101,7 +102,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 					"SELECT id as visit_id, visits.patient_id as patients_id, visit_date, "
 					+ "temperature, pulse, spo2, respiration_rate, blood_pressure, height, "
 					+ "weight, bmi, diagnosis, complaints, observations, "
-					+ "pathology, radiology FROM visits WHERE id= :id",
+					+ "pathology, radiology, next_follow_up FROM visits WHERE id= :id",
 					params,
 					new JdbcVisitRowMapperExt());
 			List<Prescription> prescriptions = this.namedParameterJdbcTemplate.query(
@@ -123,7 +124,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 		Map<String, Object> params = new HashMap<>();
 		return this.namedParameterJdbcTemplate.query(
 				"SELECT id as visit_id, patients.id as patients_id, visit_date, temperature, pulse, spo2, respiration_rate, blood_pressure, height, weight, bmi, diagnosis, observations, "
-				+ "complaints, pathology, radiology FROM visits LEFT JOIN patients ON visits.patient_id = patients.id",
+				+ "complaints, pathology, radiology, next_follow_up FROM visits LEFT JOIN patients ON visits.patient_id = patients.id",
 				params, new JdbcVisitRowMapperExt());
 	}
 
@@ -138,7 +139,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 					+ "blood_pressure=: blood_pressure, height=: height, weight=: weight, bmi=: bmi, "
 					+ "diagnosis=:diagnosis, patient_id=:patientId,"
 					+ "complaints=:complaints, observations=:observations, pathology=:pathology, "
-					+ "radiology=:radiology WHERE id=:id ",
+					+ "radiology=:radiology, next_follow_up=:next_follow_up WHERE id=:id ",
 					createVisitParameterSource(visit));
 		}
 	}
@@ -179,6 +180,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
 			visit.setDiagnosis(rs.getString("diagnosis"));
 			visit.setComplaints(rs.getString("complaints"));
 			visit.setObservations(rs.getString("observations"));
+			visit.setNextFollowUp(rs.getString("next_follow_up"));
 			Map<String, Object> params = new HashMap<>();
 			params.put("id", rs.getInt("patients_id"));
 			patient = JdbcVisitRepositoryImpl.this.namedParameterJdbcTemplate.queryForObject(
