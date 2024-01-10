@@ -33,6 +33,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,7 @@ public class VisitRestController {
 	private ClinicService clinicService;
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "", produces = "application/json")
 	public ResponseEntity<Collection<Visit>> getAllVisits(){
 		Collection<Visit> visits = new ArrayList<Visit>();
 		visits.addAll(this.clinicService.findAllVisits());

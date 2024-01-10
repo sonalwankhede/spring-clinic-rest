@@ -33,6 +33,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -63,7 +64,7 @@ public class DrugRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "", produces = "application/json")
 	public ResponseEntity<Drug> addInventory(@RequestBody @Valid Drug drug, BindingResult bindingResult, UriComponentsBuilder ucBuilder){
 		BindingErrorsResponse errors = new BindingErrorsResponse();
 		HttpHeaders headers = new HttpHeaders();

@@ -20,9 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -34,7 +35,7 @@ public class CommonRestController {
 	private ClinicService clinicService;
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/drugAllergies", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/drugAllergies", produces = "application/json")
 	public ResponseEntity<Collection<DrugAllergy>> getDrugAllergies() {
 		Collection<DrugAllergy> allergies = this.clinicService.findAllDrugAllergies();
 		if (allergies.isEmpty()) {
@@ -44,7 +45,7 @@ public class CommonRestController {
 	}
 	
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/complaints", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/complaints", produces = "application/json")
 	public ResponseEntity<Collection<Complaints>> getComplaints() {
 		Collection<Complaints> complaints = this.clinicService.findAllComplaints();
 		if (complaints.isEmpty()) {
@@ -54,7 +55,7 @@ public class CommonRestController {
 	}
 	
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/complaints", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/complaints", produces = "application/json")
 	public ResponseEntity<Complaints[]> addComplaints(@RequestBody @Valid Complaints[] newlyAddedComplaints, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -66,7 +67,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/drugAllergies", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/drugAllergies", produces = "application/json")
 	public ResponseEntity<DrugAllergy[]> addDrugAllergies(@RequestBody @Valid DrugAllergy[] newlyAddedDrugAllergies, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -78,7 +79,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/otherAllergies", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/otherAllergies", produces = "application/json")
 	public ResponseEntity<Collection<OtherAllergy>> getOtherAllergies() {
 		Collection<OtherAllergy> allergies = this.clinicService.findAllOtherAllergies();
 		if (allergies.isEmpty()) {
@@ -88,7 +89,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/otherAllergies", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/otherAllergies", produces = "application/json")
 	public ResponseEntity<OtherAllergy[]> addOtherAllergies(@RequestBody @Valid OtherAllergy[] newlyAddedOtherAllergies, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -100,7 +101,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/diagnosisDictionary", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/diagnosisDictionary", produces = "application/json")
 	public ResponseEntity<Collection<Diagnosis>> getDiagnosisDictionary() {
 		Collection<Diagnosis> diagnosisDictionary = this.clinicService.findAllDiagnosis();
 		if (diagnosisDictionary.isEmpty()) {
@@ -110,7 +111,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/diagnosisDictionary", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/diagnosisDictionary", produces = "application/json")
 	public ResponseEntity<Diagnosis[]> addNewlyAddedDiagnosis(@RequestBody @Valid Diagnosis[] newlyAddedDiagnosis, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -122,7 +123,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/knownCases", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/knownCases", produces = "application/json")
 	public ResponseEntity<Collection<KnownCase>> getKnownCases() {
 		Collection<KnownCase> knownCasesDictionary = this.clinicService.findAllKnownCases();
 		if (knownCasesDictionary.isEmpty()) {
@@ -132,7 +133,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/knownCases", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/knownCases", produces = "application/json")
 	public ResponseEntity<KnownCase[]> addOtherAllergies(@RequestBody @Valid KnownCase[] newlyAddedKnownCases, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -144,7 +145,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/observations", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/observations", produces = "application/json")
 	public ResponseEntity<Collection<Observation>> getObservations() {
 		Collection<Observation> observations = this.clinicService.findAllObservations();
 		if (observations.isEmpty()) {
@@ -154,7 +155,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/observations", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/observations", produces = "application/json")
 	public ResponseEntity<Observation[]> addObservations(@RequestBody @Valid Observation[] newlyAddedObservations, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -166,7 +167,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/pathology", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/pathology", produces = "application/json")
 	public ResponseEntity<Collection<Pathology>> getPathologyTests() {
 		Collection<Pathology> pathology = this.clinicService.findPathology();
 		if (pathology.isEmpty()) {
@@ -176,7 +177,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/pathology", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/pathology", produces = "application/json")
 	public ResponseEntity<Pathology[]> addPathScans(@RequestBody @Valid Pathology[] newlyAddedPathScans, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -188,7 +189,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/pathology/delete", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/pathology/delete", produces = "application/json")
 	public ResponseEntity<Pathology[]> deletePathScans(@RequestBody @Valid Pathology[] removedPathScans, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -200,7 +201,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/radiology", method = RequestMethod.GET, produces = "application/json")
+	@GetMapping(value = "/radiology", produces = "application/json")
 	public ResponseEntity<Collection<Radiology>> getRadiologyScans() {
 		Collection<Radiology> radiologies = this.clinicService.findRadiology();
 		if (radiologies.isEmpty()) {
@@ -210,7 +211,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/radiology", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/radiology", produces = "application/json")
 	public ResponseEntity<Radiology[]> addRadioScans(@RequestBody @Valid Radiology[] newlyAddedRadioScans, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -222,7 +223,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/radiology/delete", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/radiology/delete", produces = "application/json")
 	public ResponseEntity<Radiology[]> deleteRadioScans(@RequestBody @Valid Radiology[] removedScans, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -234,7 +235,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/drugAllergies/delete", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/drugAllergies/delete", produces = "application/json")
 	public ResponseEntity<DrugAllergy[]> deleteDrugAllergies(@RequestBody @Valid DrugAllergy[] removedDrugAllergies, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -246,7 +247,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/otherAllergies/delete", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/otherAllergies/delete", produces = "application/json")
 	public ResponseEntity<OtherAllergy[]> deleteOtherAllergies(@RequestBody @Valid OtherAllergy[] removedOtherAllergies, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -258,7 +259,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/knownCases/delete", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/knownCases/delete", produces = "application/json")
 	public ResponseEntity<KnownCase[]> deleteOtherAllergies(@RequestBody @Valid KnownCase[] removedKnownCases, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -270,7 +271,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/complaints/delete", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/complaints/delete", produces = "application/json")
 	public ResponseEntity<Complaints[]> deleteOtherAllergies(@RequestBody @Valid Complaints[] removedComplaints, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -282,7 +283,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/observations/delete", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/observations/delete", produces = "application/json")
 	public ResponseEntity<Observation[]> deleteObservations(@RequestBody @Valid Observation[] removedObservations, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();
@@ -294,7 +295,7 @@ public class CommonRestController {
 	}
 
 	@PreAuthorize( "hasRole(@roles.ADMIN)" )
-	@RequestMapping(value = "/diagnosisDictionary/delete", method = RequestMethod.POST, produces = "application/json")
+	@PostMapping(value = "/diagnosisDictionary/delete", produces = "application/json")
 	public ResponseEntity<Diagnosis[]> deletePreliminaryDiagnosis(@RequestBody @Valid Diagnosis[] removedDiagnosis, BindingResult bindingResult,
 			UriComponentsBuilder ucBuilder) {
 		HttpHeaders headers = new HttpHeaders();

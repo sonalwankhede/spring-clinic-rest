@@ -81,7 +81,6 @@ public class ClinicServiceImpl implements ClinicService {
 	private PrescriptionsRepository prescriptionsRepository;
 	private ComplaintsRepository complaintsRepository;
 
-	@Autowired
 	public ClinicServiceImpl(
 			PatientRepository patientRepository,
 			DrugRepository drugRepository,
